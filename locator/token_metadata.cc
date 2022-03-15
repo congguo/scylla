@@ -37,6 +37,7 @@ static void remove_by_value(C& container, V value) {
     }
 }
 
+// cguo: vvv token
 class token_metadata_impl final {
 public:
     using UUID = utils::UUID;

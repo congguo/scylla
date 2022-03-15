@@ -165,6 +165,7 @@ class natural_endpoints_tracker {
     };
 
     const token_metadata& _tm;
+    // cguo: vvv token
     const topology& _tp;
     std::unordered_map<sstring, size_t> _dc_rep_factor;
 
@@ -188,6 +189,7 @@ class natural_endpoints_tracker {
     //
     std::unordered_map<sstring, std::unordered_map<sstring, std::unordered_set<inet_address>>> _racks;
 
+    // cguo: vvv token
     std::unordered_map<sstring_view, data_center_endpoints> _dcs;
 
     size_t _dcs_to_fill;
@@ -223,6 +225,7 @@ public:
         }
     }
 
+    // cguo: vvv token
     bool add_endpoint_and_check_if_done(inet_address ep) {
         auto& loc = _tp.get_location(ep);
         auto i = _dcs.find(loc.dc);
@@ -241,16 +244,19 @@ public:
     }
 };
 
+// cguo: vvv token
 future<inet_address_vector_replica_set>
 network_topology_strategy::calculate_natural_endpoints(
     const token& search_token, const token_metadata& tm) const {
 
+    // cguo: vvv token, _dc_rep_factor记录了每个dc不同的replica_factor的映射关系
     natural_endpoints_tracker tracker(tm, _dc_rep_factor);
 
     for (auto& next : tm.ring_range(search_token)) {
         co_await coroutine::maybe_yield();
 
         inet_address ep = *tm.get_endpoint(next);
+        // cguo: 符合要求的ep才会添加到replica endpoint的集合中
         if (tracker.add_endpoint_and_check_if_done(ep)) {
             break;
         }

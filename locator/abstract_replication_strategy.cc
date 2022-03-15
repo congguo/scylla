@@ -353,6 +353,7 @@ effective_replication_map::factory_key effective_replication_map::make_factory_k
     return factory_key(rs->get_type(), rs->get_config_options(), tmptr->get_ring_version());
 }
 
+// cguo: vvv token
 future<effective_replication_map_ptr> effective_replication_map_factory::create_effective_replication_map(abstract_replication_strategy::ptr_type rs, token_metadata_ptr tmptr) {
     // lookup key on local shard
     auto key = effective_replication_map::make_factory_key(rs, tmptr);

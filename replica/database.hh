@@ -1153,6 +1153,8 @@ public:
      */
     lw_shared_ptr<keyspace_metadata> metadata() const;
     future<> create_replication_strategy(const locator::shared_token_metadata& stm, const locator::replication_strategy_config_options& options);
+
+    // cguo: vvv token
     void update_effective_replication_map(locator::effective_replication_map_ptr erm);
 
     /**

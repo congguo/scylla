@@ -62,6 +62,7 @@ future<> boot_strapper::bootstrap(streaming::stream_reason reason, gms::gossiper
     }
 }
 
+// cguo: vvv tokens
 std::unordered_set<token> boot_strapper::get_bootstrap_tokens(const token_metadata_ptr tmptr, const db::config& cfg, dht::check_token_endpoint check) {
     std::unordered_set<sstring> initial_tokens;
     sstring tokens_string = cfg.initial_token();
@@ -96,6 +97,7 @@ std::unordered_set<token> boot_strapper::get_bootstrap_tokens(const token_metada
         blogger.warn("Picking random token for a single vnode.  You should probably add more vnodes; failing that, you should probably specify the token manually");
     }
 
+    // cguo: vvv token
     auto tokens = get_random_tokens(std::move(tmptr), num_tokens);
     blogger.info("Get random bootstrap_tokens={}", tokens);
     return tokens;
@@ -107,6 +109,7 @@ std::unordered_set<token> boot_strapper::get_random_tokens(const token_metadata_
         auto token = dht::token::get_random_token();
         auto ep = tmptr->get_endpoint(token);
         if (!ep) {
+            // cguo: vvv token avoid conflict? 看看是否已经被其他endpoint占据了.
             tokens.emplace(token);
         }
     }

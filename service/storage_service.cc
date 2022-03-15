@@ -456,6 +456,7 @@ void storage_service::join_token_ring(std::chrono::milliseconds delay) {
                     _bootstrap_tokens = boot_strapper::get_bootstrap_tokens(tmptr, _db.local().get_config(), dht::check_token_endpoint::yes);
                 }
             } else {
+                // cguo: token vvv
                 _bootstrap_tokens = boot_strapper::get_bootstrap_tokens(tmptr, _db.local().get_config(), dht::check_token_endpoint::yes);
             }
         } else {
@@ -1436,6 +1437,7 @@ future<> storage_service::replicate_to_all_cores(mutable_token_metadata_ptr tmpt
         co_await container().invoke_on_all([&] (storage_service& ss) {
             ss._shared_token_metadata.set(std::move(pending_token_metadata_ptr[this_shard_id()]));
 
+            // cguo: vvv token
             auto& erms = pending_effective_replication_maps[this_shard_id()];
             for (auto it = erms.begin(); it != erms.end(); ) {
                 auto& db = ss._db.local();

@@ -17,7 +17,7 @@
 #include "seastarx.hh"
 
 namespace gms {
-
+    // cguo: gossip
 static const std::map<application_state, sstring> application_state_names = {
     {application_state::STATUS,                 "STATUS"},
     {application_state::LOAD,                   "LOAD"},

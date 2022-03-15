@@ -1,0 +1,51 @@
+/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /Users/guocong/open_source/scylla
+-- The C compiler identification is AppleClang 12.0.5.12050022
+-- The CXX compiler identification is AppleClang 12.0.5.12050022
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /Library/Developer/CommandLineTools/usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /Library/Developer/CommandLineTools/usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+CMake Error at CMakeLists.txt:44 (add_subdirectory):
+  The source directory
+
+    /Users/guocong/open_source/scylla/seastar
+
+  does not contain a CMakeLists.txt file.
+
+
+CMake Error at CMakeLists.txt:45 (add_subdirectory):
+  The source directory
+
+    /Users/guocong/open_source/scylla/abseil
+
+  does not contain a CMakeLists.txt file.
+
+
+CMake Error at CMakeLists.txt:54 (set_target_properties):
+  set_target_properties Can not find target to add properties to:
+  absl_strerror
+
+
+-- Looking for pthread.h
+-- Looking for pthread.h - found
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+CMake Error at /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.19/Modules/FindPackageHandleStandardArgs.cmake:218 (message):
+  Could NOT find Boost (missing: Boost_INCLUDE_DIR filesystem program_options
+  system thread regex)
+Call Stack (most recent call first):
+  /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.19/Modules/FindPackageHandleStandardArgs.cmake:582 (_FPHSA_FAILURE_MESSAGE)
+  /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.19/Modules/FindBoost.cmake:2193 (find_package_handle_standard_args)
+  CMakeLists.txt:57 (find_package)
+
+
+-- Configuring incomplete, errors occurred!
+See also "/Users/guocong/open_source/scylla/cmake-build-debug/CMakeFiles/CMakeOutput.log".
+See also "/Users/guocong/open_source/scylla/cmake-build-debug/CMakeFiles/CMakeError.log".

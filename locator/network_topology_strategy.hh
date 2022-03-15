@@ -53,6 +53,7 @@ protected:
     virtual std::optional<std::set<sstring>> recognized_options(const topology&) const override;
 
 private:
+    // cguo: vvv token
     // map: data centers -> replication factor
     std::unordered_map<sstring, size_t> _dc_rep_factor;
 
