@@ -107,6 +107,7 @@ public:
     };
 };
 
+// cguo: compaction
 // A serialized mutation of a collection of cells.
 // Used to represent mutations of collections (lists, maps, sets) or non-frozen user defined types.
 // It contains a sequence of cells, each representing a mutation of a single entry (element or field) of the collection.

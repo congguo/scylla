@@ -222,6 +222,7 @@ public:
 
         template<typename Consumer, typename Filter>
         requires FlatMutationReaderConsumer<Consumer> && FlattenedConsumerFilter<Filter>
+        // cguo: compaction
         // A variant of consume_pausable() that expects to be run in
         // a seastar::thread.
         // Partitions for which filter(decorated_key) returns false are skipped
@@ -238,6 +239,7 @@ public:
                     fill_buffer().get();
                     continue;
                 }
+                // cguo: mutation fragment is the minimal granularity
                 auto mf = pop_mutation_fragment();
                 if (mf.is_partition_start() && !filter(mf.as_partition_start().key())) {
                     next_partition().get();
@@ -246,6 +248,8 @@ public:
                 if (!filter(mf)) {
                     continue;
                 }
+
+                // cguo: compaction - 这里会生成一个将来要执行的task
                 auto do_stop = futurize_invoke([&consumer, mf = std::move(mf)] () mutable {
                     return consumer(std::move(mf));
                 });

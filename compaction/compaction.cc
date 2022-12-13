@@ -678,6 +678,7 @@ private:
         return consumer(upgrade_to_v2(make_compacting_reader(make_sstable_reader(), compaction_time, max_purgeable_func())));
     }
 
+    // cguo: compaction
     future<> consume() {
         auto now = gc_clock::now();
         // consume_without_gc_writer(), which uses compacting_reader, is ~3% slower.
@@ -693,6 +694,7 @@ private:
 
                 if (enable_garbage_collected_sstable_writer()) {
                     using compact_mutations = compact_for_compaction<compacted_fragments_writer, compacted_fragments_writer>;
+                    // cguo: compaction
                     auto cfc = compact_mutations(*schema(), now,
                         max_purgeable_func(),
                         get_compacted_fragments_writer(),
@@ -1709,6 +1711,7 @@ static future<compaction_result> scrub_sstables_validate_mode(sstables::compacti
     };
 }
 
+// cguo: compaction
 future<compaction_result>
 compact_sstables(sstables::compaction_descriptor descriptor, compaction_data& cdata, table_state& table_s) {
     if (descriptor.sstables.empty()) {

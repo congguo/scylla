@@ -19,6 +19,7 @@
 #include "db/timeout_clock.hh"
 #include "reader_permit.hh"
 
+// cguo: compaction
 // mutation_fragments are the objects that streamed_mutation are going to
 // stream. They can represent:
 //  - a static row

@@ -61,6 +61,7 @@ static bool is_broken_pipe_or_connection_reset(std::exception_ptr ep) {
     return false;
 }
 
+// cguo: vvv network package process
 future<> connection::process()
 {
     return with_gate(_pending_requests_gate, [this] {
@@ -132,6 +133,7 @@ future<> server::stop() {
     });
 }
 
+// cguo: vvv network package process
 future<>
 server::listen(socket_address addr, std::shared_ptr<seastar::tls::credentials_builder> creds, bool is_shard_aware, bool keepalive) {
     auto f = make_ready_future<shared_ptr<seastar::tls::server_credentials>>(nullptr);
@@ -163,9 +165,12 @@ server::listen(socket_address addr, std::shared_ptr<seastar::tls::credentials_bu
     });
 }
 
+// cguo: vvv network package process
 future<> server::do_accepts(int which, bool keepalive, socket_address server_addr) {
+    // cguo: vvv network loop
     return repeat([this, which, keepalive, server_addr] {
         ++_connections_being_accepted;
+        // cguo: vvv network 监听连接
         return _listeners[which].accept().then_wrapped([this, which, keepalive, server_addr] (future<accept_result> f_cs_sa) mutable {
             --_connections_being_accepted;
             if (_stopping) {

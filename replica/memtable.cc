@@ -402,6 +402,7 @@ class scanning_reader final : public flat_mutation_reader_v2::impl, private iter
     struct consumer {
         scanning_reader* _reader;
         explicit consumer(scanning_reader* r) : _reader(r) {}
+        // cguo: compaction
         stop_iteration operator()(mutation_fragment_v2 mf) {
             _reader->push_mutation_fragment(std::move(mf));
             return stop_iteration(_reader->is_buffer_full());

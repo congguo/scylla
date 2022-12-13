@@ -113,6 +113,7 @@ std::vector<socket_address> controller::listen_addresses() const {
     return _listen_addresses;
 }
 
+// cguo: vvv network package process
 future<> controller::start_server()
 {
     // 1. Create keyspace/tables used by redis API if not exists.

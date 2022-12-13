@@ -429,6 +429,7 @@ static int scylla_main(int ac, char** av) {
   try {
     runtime::init_uptime();
     std::setvbuf(stdout, nullptr, _IOLBF, 1000);
+    // cguo: vvv config
     app_template::config app_cfg;
     app_cfg.name = "Scylla";
     app_cfg.description =
@@ -1474,6 +1475,7 @@ To start the scylla server proper, simply invoke as: scylla server (or just scyl
                 }
             });
 
+            // cguo: 运行到这里表示初始化安成，以后就是各个reactor的事情了
             startlog.info("Scylla version {} initialization completed.", scylla_version());
             stop_signal.wait().get();
             startlog.info("Signal received; shutting down");

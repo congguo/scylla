@@ -254,6 +254,7 @@ compaction_manager::compaction_state& compaction_manager::get_compaction_state(r
     }
 }
 
+// cguo: compaction scheduler
 future<> compaction_manager::perform_major_compaction(replica::table* t) {
     if (_state != state::enabled) {
         return make_ready_future<>();
@@ -640,6 +641,7 @@ inline bool compaction_manager::maybe_stop_on_error(std::exception_ptr err, bool
     return requires_stop;
 }
 
+// cguo: compaction
 void compaction_manager::submit(replica::table* t) {
     if (t->is_auto_compaction_disabled_by_user()) {
         return;
@@ -683,6 +685,7 @@ void compaction_manager::submit(replica::table* t) {
 
             _stats.pending_tasks--;
             _stats.active_tasks++;
+            // cguo: compaction
             task->setup_new_compaction(descriptor.run_identifier);
             return t.compact_sstables(std::move(descriptor), task->compaction_data).then_wrapped([this, task, compacting = std::move(compacting), weight_r = std::move(weight_r)] (future<> f) mutable {
                 _stats.active_tasks--;

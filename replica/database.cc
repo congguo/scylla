@@ -1406,6 +1406,7 @@ enum class query_class {
     maintenance,
 };
 
+// cguo: scheduling group
 query_class classify_query(const database_config& _dbcfg) {
     const auto current_group = current_scheduling_group();
 

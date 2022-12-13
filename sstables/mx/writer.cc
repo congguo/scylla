@@ -1172,6 +1172,7 @@ void writer::write_liveness_info(bytes_ostream& writer, const row_marker& marker
     }
 }
 
+// cguo: compaction
 void writer::write_collection(bytes_ostream& writer, const clustering_key_prefix* clustering_key,
         const column_definition& cdef, collection_mutation_view collection, const row_time_properties& properties,
         bool has_complex_deletion) {

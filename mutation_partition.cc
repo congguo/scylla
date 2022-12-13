@@ -711,6 +711,7 @@ void write_cell(RowWriter& w, const query::partition_slice& slice, ::atomic_cell
     }().end_qr_cell();
 }
 
+// cguo: compaction -  是一个cell一个cell写的吗
 template<typename RowWriter>
 void write_cell(RowWriter& w, const query::partition_slice& slice, data_type type, collection_mutation_view v) {
     if (type->is_collection() && slice.options.contains<query::partition_slice::option::collections_as_maps>()) {
@@ -2045,6 +2046,7 @@ stop_iteration reconcilable_result_builder::consume_end_of_partition() {
     return _stop;
 }
 
+// cguo: mutation
 reconcilable_result reconcilable_result_builder::consume_end_of_stream() {
     return reconcilable_result(_total_live_rows, std::move(_result),
                                query::short_read(bool(_stop)),

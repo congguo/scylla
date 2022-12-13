@@ -162,6 +162,7 @@ stop_iteration streamed_mutation_freezer::consume(range_tombstone&& rt) {
     return stop_iteration::no;
 }
 
+// cguo: compaction - read的时候(读mutation fragment流)应该就做了compaction了
 frozen_mutation streamed_mutation_freezer::consume_end_of_stream() {
     bytes_ostream out;
     ser::writer_of_mutation<bytes_ostream> wom(out);
